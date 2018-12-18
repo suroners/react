@@ -1,39 +1,41 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import {bindActionCreators} from "redux";
 
-import { userActions } from '../store/action/authentication.action';
+import { combineActions } from '../store/action/';
 
 class LoginPage extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            username: '',
-            password: '',
+            username: 'asd',
+            password: 'asd',
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(e) {
+    handleChange = (e) => {
         const { name, value } = e.target;
         this.setState({ [name]: value });
     }
 
-    handleSubmit(e) {
+    handleSubmit = (e) => {
         e.preventDefault();
 
         const { username, password } = this.state;
-        const { dispatch } = this.props;
+        const { login } = this.props;
 
         if (username && password) {
-            dispatch(userActions.login(username, password));
+            login(username, password);
         }
     }
 
     render() {
         const { username, password } = this.state;
+        // console.log(this.state);
         return (
             <div className="col-md-6 col-md-offset-3">
                 <h2>Login</h2>
@@ -55,12 +57,19 @@ class LoginPage extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
+const putActionToProps = (dispatch) => {
+    return {
+        login: bindActionCreators(combineActions.authentication.login, dispatch)
+    }
+}
+
+const putStateToProps = (state) => {
+                console.log(state)
     const { loggingIn } = state.authentication;
     return {
         loggingIn
     };
 }
 
-const connectedLoginPage = connect(mapStateToProps)(LoginPage);
+const connectedLoginPage = connect(putStateToProps, putActionToProps)(LoginPage);
 export { connectedLoginPage as LoginPage };
