@@ -5,6 +5,8 @@ import { createBrowserHistory } from 'history';
 
 import './App.css';
 import {LoginPage} from "./components/authentication";
+import {Projects} from "./components/projects";
+import { PrivateRoute } from "./helper/route";
 
 
 const history = createBrowserHistory();
@@ -17,6 +19,7 @@ class App extends Component {
             <div>
                 {/*<PrivateRoute exact path="/" component={HomePage} />*/}
                 <Route path="/login" component={LoginPage} />
+                <PrivateRoute path="/projects" component={Projects} />
             </div>
         </Router>
     );
@@ -24,9 +27,7 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return {
-        state
-    };
+    return state;
 }
 
 const connectedApp = connect(mapStateToProps)(App);

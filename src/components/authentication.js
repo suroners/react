@@ -13,8 +13,8 @@ class LoginPage extends React.Component {
             password: 'asd',
         };
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        // this.handleChange = this.handleChange.bind(this);
+        // this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange = (e) => {
@@ -64,7 +64,6 @@ const putActionToProps = (dispatch) => {
 }
 
 const putStateToProps = (state) => {
-                console.log(state)
     const { loggingIn } = state.authentication;
     return {
         loggingIn
