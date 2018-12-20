@@ -13,19 +13,17 @@ const logout = (dispatch) => {
 
 const login = (username, password) => dispatch =>{
 
-    axios.get(`${conf.api_url}/users/`, {params:{ username: username, password: password }})
+    return axios.get(`${conf.api_url}/users/`, {params:{ username: username, password: password }})
         .then(response => {
             if (response.data) {
                 let user = response.data[0];
 
                 // localStorage.setItem('user_token', JSON.stringify(user.token));
                 localStorage.setItem('user_token', user.token);
-                dispatch({
+               return  dispatch({
                         'type': userConstants.LOGIN_SUCCESS,
                         'payload': user.token
                     })
-                window.location.href='/projects';
-                return true;
             } else {
                 return dispatch({
                     'type': userConstants.LOGIN_ERROR,

@@ -1,19 +1,11 @@
 import React from "react";
 import connect from "react-redux/es/connect/connect";
-
+import {Link} from "react-router-dom"
 import {combineActions} from "../store/action";
 import {bindActionCreators} from "redux";
 
 
 class Projects extends React.Component{
-    // constructor(props) {
-    //     super(props);
-    //
-    //     // this.state = {
-    //     //     projects: [],
-    //     // }
-    // }
-
     componentDidMount() {
         const { get_projects } = this.props;
         get_projects();
@@ -29,6 +21,9 @@ class Projects extends React.Component{
         const { projects, delete_project } = this.props;
         return (
             <div className="col-md-6 .col-md-offset-3">
+                <Link to={`/project`}>
+                    Add
+                </Link>
                 <table>
                     <thead>
                         <tr>
@@ -49,7 +44,9 @@ class Projects extends React.Component{
                                     <td>{object.date}</td>
                                     <td>{object.percent}</td>
                                     <td>
-                                        <button>Edit</button>
+                                        <Link to={`/project/${object.id}`}>
+                                            Edit
+                                        </Link>
                                     </td>
                                     <td>
                                         <button onClick={() => {delete_project(object.id)}}>Delete</button>

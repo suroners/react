@@ -22,14 +22,15 @@ class LoginPage extends React.Component {
         this.setState({ [name]: value });
     }
 
-    handleSubmit = (e) => {
+    handleSubmit =async  (e) => {
         e.preventDefault();
 
         const { username, password } = this.state;
         const { login } = this.props;
 
         if (username && password) {
-            login(username, password);
+           const res = await login(username, password);
+           res && this.props.history.push("/projects")
         }
     }
 

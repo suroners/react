@@ -21,9 +21,6 @@ const get_projects = () => dispatch => {
 }
 
 const delete_project = (id) => dispatch => {
-    // console.log(typeof id)
-    // console.log(dispatch)
-
     return axios.delete(`${conf.api_url}/projects/${id}`)
         .then(response => {
             dispatch({
