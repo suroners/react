@@ -6,13 +6,13 @@ import {bindActionCreators} from "redux";
 
 
 class Projects extends React.Component{
-    constructor(props) {
-        super(props);
-
-        // this.state = {
-        //     projects: [],
-        // }
-    }
+    // constructor(props) {
+    //     super(props);
+    //
+    //     // this.state = {
+    //     //     projects: [],
+    //     // }
+    // }
 
     componentDidMount() {
         const { get_projects } = this.props;
@@ -24,15 +24,9 @@ class Projects extends React.Component{
         //     });
     }
 
-    deleteproject = (id) => {
-
-    }
-
-
     render() {
-        // console.log(this.state);
         // console.log(this.props);
-        const { projects } = this.props;
+        const { projects, delete_project } = this.props;
         return (
             <div className="col-md-6 .col-md-offset-3">
                 <table>
@@ -55,10 +49,10 @@ class Projects extends React.Component{
                                     <td>{object.date}</td>
                                     <td>{object.percent}</td>
                                     <td>
-                                        <button >Edit</button>
+                                        <button>Edit</button>
                                     </td>
                                     <td>
-                                        <button>Delete</button>
+                                        <button onClick={() => {delete_project(object.id)}}>Delete</button>
                                     </td>
                                 </tr>
                             )
@@ -73,7 +67,8 @@ class Projects extends React.Component{
 
 const putActionToProps = (dispatch) => {
     return {
-        get_projects: bindActionCreators(combineActions.projects.get_projects, dispatch)
+        get_projects: bindActionCreators(combineActions.projects.get_projects, dispatch),
+        delete_project: bindActionCreators(combineActions.projects.delete_project, dispatch)
     }
 }
 const putStateToProps = (state) => {

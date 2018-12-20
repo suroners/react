@@ -15,7 +15,26 @@ const get_projects = () => dispatch => {
         .catch(function (error) {
             dispatch({
                 type: projectConstants.GET_PROJECT,
-                payload: ""
+                payload: []
+            });
+        })
+}
+
+const delete_project = (id) => dispatch => {
+    // console.log(typeof id)
+    // console.log(dispatch)
+
+    return axios.delete(`${conf.api_url}/projects/${id}`)
+        .then(response => {
+            dispatch({
+                type: projectConstants.DELETE_PROJECT,
+                payload: id
+            });
+        })
+        .catch(function (error) {
+            dispatch({
+                type: projectConstants.DELETE_PROJECT,
+                payload: id
             });
         })
 }
@@ -23,4 +42,5 @@ const get_projects = () => dispatch => {
 
 export const projects ={
     get_projects,
+    delete_project,
 }
