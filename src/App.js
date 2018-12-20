@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Router, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createBrowserHistory } from 'history';
@@ -11,24 +11,25 @@ import { PrivateRoute } from "./helper/route";
 
 const history = createBrowserHistory();
 
-class App extends Component {
-
-  render() {
-    return (
-        <Router history={history}>
-            <div>
-                {/*<PrivateRoute exact path="/" component={HomePage} />*/}
-                <Route path="/login" component={LoginPage} />
-                <PrivateRoute path="/projects" component={Projects} />
-            </div>
-        </Router>
-    );
-  }
+class App extends React.Component {
+    render() {
+        const { user_token } = this.props;
+        return (
+            <Router history={history}>
+                <div>
+                    <Route path="/login" component={LoginPage} />
+                    <PrivateRoute  path="/projects" component={Projects}  isAuth={user_token ? true : false} />
+                </div>
+            </Router>
+        );
+    }
 }
 
-const mapStateToProps = (state) => {
-    return state;
+const putStateToProps = (state) => {
+    const { user_token } = state.authentication;
+    return {
+        user_token: user_token
+    };
 }
-
-const connectedApp = connect(mapStateToProps)(App);
+const connectedApp = connect(putStateToProps)(App);
 export { connectedApp as App };

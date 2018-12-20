@@ -1,15 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import connect from "react-redux/es/connect/connect";
 
 
-class Projects extends Component{
-    constructor(props){
-        console.log(props)
-        super(props);
-
-
-
-    }
+class Projects extends React.Component{
+    // constructor(props){
+    //     super(props);
+    // }
 
     render() {
         return (
@@ -19,14 +15,14 @@ class Projects extends Component{
 
 }
 
-const mapActionToProps = (dispatch) => {
+const putActionToProps = (dispatch) => {
     return {};
 }
 
-const mapStateToProps = (state) => {
+const putStateToProps = (state) => {
     return state;
 }
 
 
-const connectedProjects = connect(mapStateToProps, mapActionToProps)(Projects);
+const connectedProjects = connect(putStateToProps, putActionToProps)(Projects);
 export { connectedProjects as Projects };

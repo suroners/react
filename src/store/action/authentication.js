@@ -19,10 +19,12 @@ const login = (username, password) => dispatch =>{
                 let user = response.data[0];
 
                 localStorage.setItem('user_token', JSON.stringify(user.token));
-                return dispatch({
+                dispatch({
                         'type': userConstants.LOGIN_SUCCESS,
                         'payload': user.token
                     })
+                window.location.href='/projects';
+                return true;
             } else {
                 return dispatch({
                     'type': userConstants.LOGIN_ERROR,

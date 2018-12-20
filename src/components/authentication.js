@@ -35,7 +35,6 @@ class LoginPage extends React.Component {
 
     render() {
         const { username, password } = this.state;
-        // console.log(this.state);
         return (
             <div className="col-md-6 col-md-offset-3">
                 <h2>Login</h2>
@@ -64,9 +63,9 @@ const putActionToProps = (dispatch) => {
 }
 
 const putStateToProps = (state) => {
-    const { loggingIn } = state.authentication;
+    const { authentication } = state;
     return {
-        loggingIn
+        authentication: authentication
     };
 }
 
