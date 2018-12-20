@@ -5,7 +5,8 @@ export const userConstants = {
     LOGIN_ERROR: 'USERS_LOGIN_ERROR',
 };
 
-let user_token = JSON.parse(localStorage.getItem('user_token'));
+// let user_token = JSON.parse(localStorage.getItem('user_token'));
+let user_token = localStorage.getItem('user_token');
 
 const initialState = {
     user_token: user_token ? user_token : '',

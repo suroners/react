@@ -18,7 +18,8 @@ const login = (username, password) => dispatch =>{
             if (response.data) {
                 let user = response.data[0];
 
-                localStorage.setItem('user_token', JSON.stringify(user.token));
+                // localStorage.setItem('user_token', JSON.stringify(user.token));
+                localStorage.setItem('user_token', user.token);
                 dispatch({
                         'type': userConstants.LOGIN_SUCCESS,
                         'payload': user.token

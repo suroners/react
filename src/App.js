@@ -16,7 +16,7 @@ class App extends React.Component {
         const { user_token } = this.props;
         return (
             <Router history={history}>
-                <div>
+                <div className="col-md-12">
                     <Route path="/login" component={LoginPage} />
                     <PrivateRoute  path="/projects" component={Projects}  isAuth={user_token ? true : false} />
                 </div>
