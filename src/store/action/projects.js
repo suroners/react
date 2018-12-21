@@ -20,6 +20,22 @@ const get_projects = () => dispatch => {
         })
 }
 
+const add_projects = (project) => dispatch => {
+    return axios.get(`${conf.api_url}/projects/`)
+        .then(response => {
+            dispatch({
+                type: projectConstants.GET_PROJECT,
+                payload: response.data
+            });
+        })
+        .catch(function (error) {
+            dispatch({
+                type: projectConstants.GET_PROJECT,
+                payload: []
+            });
+        })
+}
+
 const delete_project = (id) => dispatch => {
     return axios.delete(`${conf.api_url}/projects/${id}`)
         .then(response => {

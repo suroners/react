@@ -20,7 +20,7 @@ class App extends React.Component {
                 <div className="col-md-12">
                     <Route path="/login" component={LoginPage} />
                     <PrivateRoute  path="/projects" component={Projects}  isAuth={user_token ? true : false} />
-                    <PrivateRoute  path="/project" component={Project}  isAuth={user_token ? true : false} />
+                    <PrivateRoute  path="/project/:project_id?" component={Project}  isAuth={user_token ? true : false} />
                 </div>
             </Router>
         );
