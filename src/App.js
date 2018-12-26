@@ -19,8 +19,8 @@ class App extends React.Component {
             <Router history={history}>
                 <div className="col-md-12">
                     <Route path="/login" component={LoginPage} />
-                    <PrivateRoute  path="/projects" component={Projects}  isAuth={user_token ? true : false} />
-                    <PrivateRoute  path="/project/:project_id?" component={Project}  isAuth={user_token ? true : false} />
+                    <PrivateRoute  path="/projects" component={Projects}  isAuth={!!user_token} />
+                    <PrivateRoute  path="/project/:project_id?" component={Project}  isAuth={!!user_token} />
                 </div>
             </Router>
         );
@@ -32,6 +32,6 @@ const putStateToProps = (state) => {
     return {
         user_token: user_token
     };
-}
+};
 const connectedApp = connect(putStateToProps)(App);
 export { connectedApp as App };

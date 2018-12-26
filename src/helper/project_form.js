@@ -1,5 +1,5 @@
 import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from "yup";
 
 const ProjectSchema = Yup.object().shape({
@@ -20,50 +20,54 @@ const ProjectSchema = Yup.object().shape({
         .required('Required'),
 });
 
-const initialValues = {
-    name: 'asd',
-    description: 'asd',
-    percent: '10',
-    date: '2018-12-21',
-}
-
 // export const ProjectForm = (project = initialValues) => {
 export const ProjectForm = (props) => {
-    // console.log(props, "props")
-    return (
-        <Formik
-            // initialValues={ project.project }
+    const parent_props = props,
+        initialValues = parent_props.project,
+        project_id = props.match.params.project_id;
+
+    return (<Formik
             {...props}
-            initialValues={ initialValues }
+            enableReinitialize
+            initialValues={initialValues}
             validationSchema={ProjectSchema}
-            onSubmit={(values, props) => {
-                // same shape as initial values
-                console.log(props, "props");
-                props.setSubmitting(false);
+            onSubmit={async (values, props) => {
+                let res = '';
+                if(project_id) {
+                    res = await parent_props.update_project(values, project_id);
+                } else {
+                    res = await parent_props.add_project(values);
+                }
+
+                if(res.status === 201 || res.status === 200){
+                    props.setSubmitting(false);
+                    parent_props.history.push("/projects");
+                } else {
+                    props.setStatus({
+                        name: 'Is too long.',
+                        description: 'Is wrong.',
+                    });
+                }
             }}
         >
-            {({ errors, touched, ...rest }) => {
+            {({errors, touched, ...rest}) => {
                 return (
                     <Form>
                         <div>
-                            <Field name="name"  placeholder="Name" />
-                            <ErrorMessage name="name" />
+                            <Field name="name" placeholder="Name"/>
+                            <ErrorMessage name="name"/>
                         </div>
                         <div>
-                            <Field name="description"  placeholder="Description" />
-                            <ErrorMessage name="description" />
-                            {/*<ErrorMessage name="description">*/}
-                            {/*{errorMessage => <div className="error">{errorMessage}</div>}*/}
-                            {/*</ErrorMessage>*/}
+                            <Field name="description" placeholder="Description"/>
+                            <ErrorMessage name="description"/>
                         </div>
                         <div>
-                            {console.log(";;;;;", props)}
-                            <Field name="percent"  placeholder="Percent" />
-                            <ErrorMessage name="percent" />
+                            <Field name="percent" placeholder="Percent"/>
+                            <ErrorMessage name="percent"/>
                         </div>
                         <div>
-                            <Field name="date"  placeholder="Date" type="date" />
-                            <ErrorMessage name="date" />
+                            <Field name="date" placeholder="Date" type="date"/>
+                            <ErrorMessage name="date"/>
                         </div>
                         <div>
                             <button type="submit">Submit</button>
@@ -72,8 +76,9 @@ export const ProjectForm = (props) => {
                     {JSON.stringify(rest, null, 2)}
                 </pre>
                     </Form>
-                )}}
+                )
+            }}
         </Formik>
     );
-}
+};
 
