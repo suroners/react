@@ -7,8 +7,8 @@ import {bindActionCreators} from "redux";
 
 class Projects extends React.Component{
     componentDidMount() {
-        const { get_projects } = this.props;
-        get_projects();
+        const { getProjects } = this.props;
+        getProjects();
         // combineActions.projects.get_projects()
         //     .then(data => {
         //         if(typeof data.error == "undefined")
@@ -18,7 +18,7 @@ class Projects extends React.Component{
 
     render() {
         // console.log(this.props);
-        const { projects, delete_project } = this.props;
+        const { projects, deleteProject } = this.props;
         return (
             <div className="col-md-6 .col-md-offset-3">
                 <Link to={`/project`}>
@@ -49,7 +49,7 @@ class Projects extends React.Component{
                                         </Link>
                                     </td>
                                     <td>
-                                        <button onClick={() => {delete_project(object.id)}}>Delete</button>
+                                        <button onClick={() => {deleteProject(object.id)}}>Delete</button>
                                     </td>
                                 </tr>
                             )
@@ -64,8 +64,8 @@ class Projects extends React.Component{
 
 const putActionToProps = (dispatch) => {
     return {
-        get_projects: bindActionCreators(combineActions.projects.get_projects, dispatch),
-        delete_project: bindActionCreators(combineActions.projects.delete_project, dispatch)
+        getProjects: bindActionCreators(combineActions.projects.getProjects, dispatch),
+        deleteProject: bindActionCreators(combineActions.projects.deleteProject, dispatch)
     }
 }
 const putStateToProps = (state) => {

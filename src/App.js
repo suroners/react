@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Router, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createBrowserHistory } from 'history';
@@ -6,21 +6,21 @@ import { createBrowserHistory } from 'history';
 import './App.css';
 import {LoginPage} from "./components/authentication";
 import {Projects} from "./components/projects";
-import {Project} from "./components/add_edit_project";
+import {Project} from "./components/addEditProject";
 import { PrivateRoute } from "./helper/route";
 
 
 const history = createBrowserHistory();
 
-class App extends React.Component {
+class App extends Component {
     render() {
-        const { user_token } = this.props;
+        const { userToken } = this.props;
         return (
             <Router history={history}>
                 <div className="col-md-12">
                     <Route path="/login" component={LoginPage} />
-                    <PrivateRoute  path="/projects" component={Projects}  isAuth={!!user_token} />
-                    <PrivateRoute  path="/project/:project_id?" component={Project}  isAuth={!!user_token} />
+                    <PrivateRoute  path="/projects" component={Projects}  isAuth={!!userToken} />
+                    <PrivateRoute  path="/project/:projectId?" component={Project}  isAuth={!!userToken} />
                 </div>
             </Router>
         );
@@ -28,9 +28,9 @@ class App extends React.Component {
 }
 
 const putStateToProps = (state) => {
-    const { user_token } = state.authentication;
+    const { userToken } = state.authentication;
     return {
-        user_token: user_token
+        userToken: userToken
     };
 };
 const connectedApp = connect(putStateToProps)(App);

@@ -1,10 +1,19 @@
-import { conf } from "../../conf";
+import {conf} from "../../conf";
 import axios from 'axios';
 
-import { projectConstants } from '../reducers/projects';
+import {projectConstants} from '../reducers/projects';
+import {addData, deleteById, getById, udpatById} from "../../helper/api"
 
 
-const get_projects = () => dispatch => {
+// let api = axios.create({
+//     baseURL: 'http://localhost:3001/projects',
+//     headers: {
+//
+//     }
+// });
+// console.log(api.get(),'api')
+
+const getProjects = () => dispatch => {
     return axios.get(`${conf.api_url}/projects/`)
         .then(response => {
             dispatch({
@@ -12,7 +21,7 @@ const get_projects = () => dispatch => {
                 payload: response.data
             });
         })
-        .catch(function (error) {
+        .catch(error => {
             dispatch({
                 type: projectConstants.GET_PROJECTS,
                 payload: []
@@ -20,8 +29,8 @@ const get_projects = () => dispatch => {
         })
 };
 
-const get_project = (id) => dispatch => {
-    return axios.get(`${conf.api_url}/projects/${id}`)
+const getProject = (id) => dispatch => {
+    return getById('projects', id)
         .then(response => {
             delete response.data.id
             dispatch({
@@ -31,19 +40,14 @@ const get_project = (id) => dispatch => {
         })
         .catch(function (error) {
             dispatch({
-                type: projectConstants.GET_PROJECT,
-                payload: {
-                    name: '',
-                    description: '',
-                    percent: '',
-                    date: '',
-                }
+                type: projectConstants.ERROR_PROJECT,
+                payload: error
             });
         })
 };
 
-const add_project = (project) => dispatch => {
-    return axios.post(`${conf.api_url}/projects/`, project)
+const addProject = (project) => dispatch => {
+    return addData('projects', project)
         .then(response => {
             return response;
         })
@@ -52,8 +56,8 @@ const add_project = (project) => dispatch => {
         })
 };
 
-const update_project = (project, id) => dispatch => {
-    return axios.put(`${conf.api_url}/projects/${id}`, project)
+const updateProject = (project, id) => dispatch => {
+    return udpatById('projects', id, project)
         .then(response => {
             return response;
         })
@@ -62,8 +66,8 @@ const update_project = (project, id) => dispatch => {
         })
 };
 
-const delete_project = (id) => dispatch => {
-    return axios.delete(`${conf.api_url}/projects/${id}`)
+const deleteProject = (id) => dispatch => {
+    return deleteById('projects', id)
         .then(response => {
             dispatch({
                 type: projectConstants.DELETE_PROJECT,
@@ -79,10 +83,10 @@ const delete_project = (id) => dispatch => {
 };
 
 
-export const projects ={
-    get_project,
-    get_projects,
-    add_project,
-    update_project,
-    delete_project,
+export const projects = {
+    getProject,
+    getProjects,
+    addProject,
+    updateProject,
+    deleteProject,
 };

@@ -2,12 +2,12 @@ import React from "react";
 import connect from "react-redux/es/connect/connect";
 import {combineActions} from "../store/action";
 import {bindActionCreators} from "redux";
-import { ProjectForm } from "../helper/project_form";
+import { ProjectForm } from "../helper/projectForm";
 
 class AddEditProject extends React.Component{
     componentDidMount() {
-        const project_id = this.props.match.params.project_id;
-        this.props.get_project(project_id);
+        const projectId = this.props.match.params.projectId;
+        this.props.getProject(projectId);
     }
 
     render() {
@@ -23,9 +23,9 @@ class AddEditProject extends React.Component{
 
 const putActionToProps = (dispatch) => {
     return {
-        add_project: bindActionCreators(combineActions.projects.add_project, dispatch),
-        get_project: bindActionCreators(combineActions.projects.get_project, dispatch),
-        update_project: bindActionCreators(combineActions.projects.update_project, dispatch)
+        addProject: bindActionCreators(combineActions.projects.addProject, dispatch),
+        getProject: bindActionCreators(combineActions.projects.getProject, dispatch),
+        updateProject: bindActionCreators(combineActions.projects.updateProject, dispatch)
     }
 };
 const putStateToProps = (state) => {
