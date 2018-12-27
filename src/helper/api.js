@@ -7,14 +7,12 @@ function setHeaders() {
 
 export function getById(url, id) {
     setHeaders();
-    const req = axios.get(`${conf.api_url}/${url}/${id}`);
-    return req;
+    return axios.get(`${conf.api_url}/${url}/${id}`);
 }
 
 export function addData(url, data) {
     setHeaders();
-    const req = axios.post(`${conf.api_url}/${url}/`, data);
-    return req;
+    return axios.post(`${conf.api_url}/${url}/`, data);
 }
 
 export function udpatById(url, id, data) {

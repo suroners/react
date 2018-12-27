@@ -4,17 +4,29 @@ import {combineActions} from "../store/action";
 import {bindActionCreators} from "redux";
 import { ProjectForm } from "../helper/projectForm";
 
-class AddEditProject extends React.Component{
+class EditProject extends React.Component{
+    constructor(props) {
+        super(props);
+
+        this.projectId = this.props.match.params.projectId;
+    }
+
     componentDidMount() {
-        const projectId = this.props.match.params.projectId;
-        this.props.getProject(projectId);
+        this.props.getProject(this.projectId);
+    }
+
+    handleSubmit = async (values, props) => {
+        await this.props.updateProject(values, this.projectId);
+
+        props.setSubmitting(false);
+        this.props.history.push("/projects");
     }
 
     render() {
         return (
             <div className="col-md-6 .col-md-offset-3">
                 <h2>Add project</h2>
-                <ProjectForm  {...this.props} />
+                <ProjectForm  {...this.props} handleSubmit={this.handleSubmit} />
             </div>
         );
     }
@@ -23,7 +35,6 @@ class AddEditProject extends React.Component{
 
 const putActionToProps = (dispatch) => {
     return {
-        addProject: bindActionCreators(combineActions.projects.addProject, dispatch),
         getProject: bindActionCreators(combineActions.projects.getProject, dispatch),
         updateProject: bindActionCreators(combineActions.projects.updateProject, dispatch)
     }
@@ -36,5 +47,5 @@ const putStateToProps = (state) => {
 };
 
 
-const connectedAddEditProject = connect(putStateToProps, putActionToProps)(AddEditProject);
-export { connectedAddEditProject as Project };
+const connectedEditProject = connect(putStateToProps, putActionToProps)(EditProject);
+export { connectedEditProject as EditProject };

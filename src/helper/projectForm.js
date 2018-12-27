@@ -13,31 +13,14 @@ const ProjectSchema = Yup.object().shape({
 export const ProjectForm = (props) => {
     const parentProps = props,
         initialValues = parentProps.project,
-        projectId = props.match.params.projectId;
+        submit = parentProps.handleSubmit;
 
     return (<Formik
         {...props}
         enableReinitialize
         initialValues={initialValues}
         validationSchema={ProjectSchema}
-        onSubmit={async (values, props) => {
-            let res = '';
-            if(projectId) {
-                res = await parentProps.updateProject(values, projectId);
-            } else {
-                res = await parentProps.addProject(values);
-            }
-
-            if(res.status === 201 || res.status === 200){
-                props.setSubmitting(false);
-                parentProps.history.push("/projects");
-            } else {
-                props.setStatus({
-                    name: 'Is too long.',
-                    description: 'Is wrong.',
-                });
-            }
-        }}
+        onSubmit={ submit }
         >
             {({errors, touched, ...rest}) => {
                 return (

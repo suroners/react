@@ -6,8 +6,9 @@ import { createBrowserHistory } from 'history';
 import './App.css';
 import {LoginPage} from "./components/authentication";
 import {Projects} from "./components/projects";
-import {Project} from "./components/addEditProject";
+import {EditProject} from "./components/editProject";
 import { PrivateRoute } from "./helper/route";
+import {AddProject} from "./components/addProject";
 
 
 const history = createBrowserHistory();
@@ -20,7 +21,8 @@ class App extends Component {
                 <div className="col-md-12">
                     <Route path="/login" component={LoginPage} />
                     <PrivateRoute  path="/projects" component={Projects}  isAuth={!!userToken} />
-                    <PrivateRoute  path="/project/:projectId?" component={Project}  isAuth={!!userToken} />
+                    <PrivateRoute  path="/project/edit/:projectId?" component={EditProject}  isAuth={!!userToken} />
+                    <PrivateRoute  path="/project/add" component={AddProject}  isAuth={!!userToken} />
                 </div>
             </Router>
         );

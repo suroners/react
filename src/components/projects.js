@@ -21,7 +21,7 @@ class Projects extends React.Component{
         const { projects, deleteProject } = this.props;
         return (
             <div className="col-md-6 .col-md-offset-3">
-                <Link to={`/project`}>
+                <Link to={`/project/add`}>
                     Add
                 </Link>
                 <table>
@@ -44,7 +44,7 @@ class Projects extends React.Component{
                                     <td>{object.date}</td>
                                     <td>{object.percent}</td>
                                     <td>
-                                        <Link to={`/project/${object.id}`}>
+                                        <Link to={`/project/edit/${object.id}`}>
                                             Edit
                                         </Link>
                                     </td>
