@@ -2,6 +2,10 @@ import React from 'react';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from "yup";
 import {date, description, name, percent} from "./validation";
+import DatePicker from "react-datepicker";
+
+
+import "react-datepicker/dist/react-datepicker.css";
 
 const ProjectSchema = Yup.object().shape({
     name,
@@ -22,7 +26,7 @@ export const ProjectForm = (props) => {
         validationSchema={ProjectSchema}
         onSubmit={ submit }
         >
-            {({errors, touched, ...rest}) => {
+            {({values, errors, touched, setFieldValue, ...rest}) => {
                 return (
                     <Form>
                         <div>
@@ -38,7 +42,7 @@ export const ProjectForm = (props) => {
                             <ErrorMessage name="percent"/>
                         </div>
                         <div>
-                            <Field name="date" placeholder="Date" type="date"/>
+                            <DatePicker name="date" onChange={(_) => setFieldValue('date', _)} selected={values.date} dateFormat="MM/DD/YYYY" />
                             <ErrorMessage name="date"/>
                         </div>
                         <div>
